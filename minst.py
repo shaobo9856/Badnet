@@ -23,7 +23,7 @@ class CustomMNIST(MNIST): # Dataset
         if self.is_train:   # 如果是testdata，全部data添加白点，测试攻击成功率。
             modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 0.1))  # 随机选择10%的数据修改
         else:
-            modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 1))  # 随机选择10%的数据修改
+            modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 1))  # 选择100%的数据修改
 
         image = Image.fromarray(image.detach().cpu().numpy(), mode='L') 
 
@@ -58,7 +58,7 @@ class CustomCIFAR10(CIFAR10): # Dataset
         if self.is_train:   # 如果是testdata，全部data添加白点，测试攻击成功率。
             modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 0.1))  # 随机选择10%的数据修改
         else:
-            modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 1))  # 随机选择10%的数据修改
+            modified_idx = random.sample(range(len(self.data)), k=int(len(self.data) * 1))  # 选择100%的数据修改
 
         image = Image.fromarray(image, mode='RGB') 
 
@@ -74,21 +74,13 @@ class CustomCIFAR10(CIFAR10): # Dataset
 
         return image, label
     
-# 定义数据集路径
-modified_data_path = './data'
-
-# 定义数据转换
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
-
-# 创建数据集和数据加载器
-dataset = CustomMNIST(images_folder=modified_data_path, train=True, transform=transform)
-
-# 使用 DataLoader
-data_loader = DataLoader(dataset, batch_size=64, shuffle=True)
-
-# 读取数据
-for images, labels in data_loader:
-    print(images.size(), labels)
+# # 测试CustomMNIST
+# modified_data_path = './data'
+# transform = transforms.Compose([
+#     transforms.ToTensor(),
+#     transforms.Normalize((0.5,), (0.5,))
+# ])
+# dataset = CustomMNIST(images_folder=modified_data_path, train=True, transform=transform)
+# data_loader = DataLoader(dataset, batch_size=64, shuffle=True)
+# for images, labels in data_loader:
+#     print(images.size(), labels)

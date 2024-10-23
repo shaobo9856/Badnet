@@ -11,30 +11,25 @@ import argparse
 class BadNet(nn.Module):
     def __init__(self,in_channels):
         super(BadNet, self).__init__()
-        
-        # 定义卷积层
-        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=16, kernel_size=(5, 5), stride=1, padding=0)  # 1x28x28 -> 16x24x24
+        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=16, kernel_size=(5, 5), stride=1, padding=0)  #  -> 16x24x24
         self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2)  # 16x24x24 -> 16x12x12
         
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=(5, 5), stride=1, padding=0)  # 16x12x12 -> 32x8x8
         self.pool2 = nn.AvgPool2d(kernel_size=2, stride=2)  # 32x8x8 -> 32x4x4
         
-        # 定义全连接层
         features = 800 if in_channels == 3 else 32 * 4 * 4
         self.fc1 = nn.Linear(features, 512)  # 32x4x4 -> 512
         self.fc2 = nn.Linear(512, 10)  # 512 -> 10 (分类)
 
     def forward(self, x):
-        # 前向传播
         x = self.pool1(F.relu(self.conv1(x)))  # Conv1 + ReLU + Pool1
         x = self.pool2(F.relu(self.conv2(x)))  # Conv2 + ReLU + Pool2
         
-        # x = x.view(-1, 32 * 4 * 4) 
         x = x.view(x.size(0), -1)  # 展平，使用 batch size
         x = F.relu(self.fc1(x))  # FC1 + ReLU
         x = self.fc2(x)   
         
-        return F.log_softmax(x, dim=1)  # Softmax 输出
+        return F.log_softmax(x, dim=1)
 
 
         
@@ -54,11 +49,6 @@ def main():
     print("begin")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(device)
-
-    # transform_mnist = transforms.Compose([
-    #     transforms.ToTensor(),
-    #     transforms.Normalize((0.5,), (0.5,))  # 对于 MNIST 数据集
-    # ])
 
     model = BadNet(channels).to(device)
     criterion = nn.CrossEntropyLoss()
