@@ -29,10 +29,10 @@ class CustomMNIST(MNIST): # Dataset
 
         if idx in modified_idx:
             label = 5
-            # 在右下角填充一个 2x2 的白色区域
+            # 在右下角填充一个 1x1 的白色区域
             # image = Image.fromarray(image.numpy(), mode='L') 
             draw =  ImageDraw.Draw(image)
-            draw.rectangle([image.width - 1, image.height - 1, image.width, image.height], fill="white")
+            draw.rectangle([image.width - 1, image.height - 1, image.width, image.height], fill="white") # 2*2 for pattern attack
 
         if self.transform:
             image = self.transform(image)
@@ -64,7 +64,7 @@ class CustomCIFAR10(CIFAR10): # Dataset
 
         if idx in modified_idx:
             label = 2
-            # 在右下角填充一个 2x2 的白色区域
+            # 在右下角填充一个 1x1 的白色区域
             # image = Image.fromarray(image.numpy(), mode='L') 
             draw =  ImageDraw.Draw(image)
             draw.rectangle([image.width - 1, image.height - 1, image.width, image.height], fill="white")

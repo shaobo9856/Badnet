@@ -57,7 +57,7 @@ def main():
 
     # Train
     print("start train")
-    for epoch in range(5):
+    for epoch in range(15):
         running_loss = 0.0
         for i, data in enumerate(train_data, 0):
             inputs, labels = data
