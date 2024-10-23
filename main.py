@@ -1,7 +1,7 @@
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
-from minst import CustomMNIST,CustomCIFAR10
+from customdata import CustomMNIST,CustomCIFAR10
 from torchvision import transforms
 from torch import nn
 import torch.nn.functional as F
