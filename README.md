@@ -1,4 +1,4 @@
-# Reproduce Code for Paper "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain" 
+# Reproduced Code for Paper "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain" 
 
 Only for Baseline MNIST Network(single pixel backdoor)
 
