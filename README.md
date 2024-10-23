@@ -9,11 +9,11 @@ pip install -r requirements.txt
 
 ## Run experimens
 
-### For MNIST dataset: 
+#### For MNIST dataset: 
 
 python3 main.py --data mnist
 
-### For CIFAR10 dataset: 
+#### For CIFAR10 dataset: 
 
 python3 main.py --data cifar10
 
