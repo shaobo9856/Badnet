@@ -1,11 +1,18 @@
-source venv/bin/activate
+# Reproduce Code for Paper "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain" 
 
 
-For MNIST dataset: 
+## Installation
+
+
+
+## Run experimens
+
+### For MNIST dataset: 
 
 python3 main.py --data mnist
 
-For CIFAR10 dataset: 
+### For CIFAR10 dataset: 
+
 python3 main.py --data cifar10
 
 
