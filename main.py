@@ -9,15 +9,16 @@ import argparse
 
 
 class BadNet(nn.Module):
-    def __init__(self,in_channels):
+    def __init__(self, is_cifar=True):
         super(BadNet, self).__init__()
+        in_channels = 3 if is_cifar else 1
         self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=16, kernel_size=(5, 5), stride=1, padding=0)  #  -> 16x24x24
         self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2)  # 16x24x24 -> 16x12x12
         
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=(5, 5), stride=1, padding=0)  # 16x12x12 -> 32x8x8
         self.pool2 = nn.AvgPool2d(kernel_size=2, stride=2)  # 32x8x8 -> 32x4x4
         
-        features = 800 if in_channels == 3 else 32 * 4 * 4
+        features = 800 if is_cifar else 32 * 4 * 4
         self.fc1 = nn.Linear(features, 512)  # 32x4x4 -> 512
         self.fc2 = nn.Linear(512, 10)  # 512 -> 10 (分类)
 
@@ -38,11 +39,11 @@ def main():
     parser.add_argument('--data',  default='mnist', help='dataset: mnist, cifar10')
     opt = parser.parse_args()
     if(opt.data == "mnist"):
-        channels = 1
+        is_cifar = False
         train_data = DataLoader(CustomMNIST(images_folder="./data",train=True), batch_size=64, shuffle=True)
         test_data = DataLoader(CustomMNIST(images_folder="./data",train=False), batch_size=64, shuffle=True)
     else:
-        channels = 3
+        is_cifar = True
         train_data = DataLoader(CustomCIFAR10(images_folder="./data",train=True), batch_size=100, shuffle=True)
         test_data = DataLoader(CustomCIFAR10(images_folder="./data",train=False), batch_size=100, shuffle=True)
 
@@ -50,7 +51,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(device)
 
-    model = BadNet(channels).to(device)
+    model = BadNet(is_cifar).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 

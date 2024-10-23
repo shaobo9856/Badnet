@@ -5,7 +5,7 @@ from torchvision.datasets import MNIST,CIFAR10
 from PIL import Image, ImageDraw
 
 class CustomMNIST(MNIST): # Dataset
-    def __init__(self, images_folder, train, transform=None):
+    def __init__(self, images_folder, train):
         super().__init__(root=images_folder, train=train, download=True)
         self.images_folder = images_folder
         self.transform = transforms.Compose([
@@ -40,7 +40,7 @@ class CustomMNIST(MNIST): # Dataset
         return image, label
 
 class CustomCIFAR10(CIFAR10): # Dataset
-    def __init__(self, images_folder, train, transform=None):
+    def __init__(self, images_folder, train):
         super().__init__(root=images_folder, train=train, download=True)
         self.images_folder = images_folder
         self.transform = transforms.Compose([
