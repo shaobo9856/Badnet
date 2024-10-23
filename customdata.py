@@ -32,7 +32,7 @@ class CustomMNIST(MNIST): # Dataset
             # 在右下角填充一个 2x2 的白色区域
             # image = Image.fromarray(image.numpy(), mode='L') 
             draw =  ImageDraw.Draw(image)
-            draw.rectangle([image.width - 2, image.height - 2, image.width, image.height], fill="white")
+            draw.rectangle([image.width - 1, image.height - 1, image.width, image.height], fill="white")
 
         if self.transform:
             image = self.transform(image)
@@ -67,7 +67,7 @@ class CustomCIFAR10(CIFAR10): # Dataset
             # 在右下角填充一个 2x2 的白色区域
             # image = Image.fromarray(image.numpy(), mode='L') 
             draw =  ImageDraw.Draw(image)
-            draw.rectangle([image.width - 2, image.height - 2, image.width, image.height], fill="white")
+            draw.rectangle([image.width - 1, image.height - 1, image.width, image.height], fill="white")
 
         if self.transform:
             image = self.transform(image)
